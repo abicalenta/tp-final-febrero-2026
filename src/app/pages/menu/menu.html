@@ -1,1 +1,34 @@
-<p>menu works!</p>
+<section class="hero"></section>
+
+<section class="menu-card">
+
+  <div class="restaurant-info">
+    <h1>Filippa’s</h1>
+    <p>Cucina Italiana</p>
+  </div>
+
+  <div class="order-type">
+    <button class="active">Delivery</button>
+    <button>Take Away</button>
+  </div>
+
+  <input class="address" placeholder="Ingresar dirección">
+
+</section>
+
+<section class="categories">
+  <button (click)="showAll()">Todos</button>
+  <button *ngFor="let c of categories"
+          (click)="filterByCategory(c)">
+    {{ c }}
+  </button>
+</section>
+
+<section class="products">
+
+  <app-product-card
+      *ngFor="let p of filtered"
+      [product]="p">
+  </app-product-card>
+
+</section>
