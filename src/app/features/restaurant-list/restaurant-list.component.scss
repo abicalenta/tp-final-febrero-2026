@@ -1,0 +1,18 @@
+.card-restaurante {
+  border: 1px solid #eaeaea;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px); // Efecto de elevación al pasar el mouse
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+}
+
+.btn-ver-menu {
+  background-color: #1a1a1a; // Negro sofisticado como Filipa's
+  color: white;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}

@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RestaurantService } from '../../core/services/restaurant';
 import { Restaurant } from '../../core/services/Models/restaurant.interface';
 
+
 @Component({
   selector: 'app-restaurant-list',
   standalone: true,
@@ -12,7 +13,7 @@ import { Restaurant } from '../../core/services/Models/restaurant.interface';
 export class RestaurantListComponent implements OnInit {
   private resService = inject(RestaurantService);
   
-  // Usamos un Signal para guardar la lista
+  // Signal para guard la list
   restaurantes = signal<Restaurant[]>([]);
 
   ngOnInit() {
@@ -22,3 +23,13 @@ export class RestaurantListComponent implements OnInit {
     });
   }
 }
+
+const restaurantes = signal<Restaurant[]>([
+  {
+    id: 1,
+    nombre: "Filipa's Ejemplo",
+    categoria: "Gourmet",
+    direccion: "Av. Pellegrini 1234, Rosario",
+    logo: "https://via.placeholder.com/300"
+  }
+]);

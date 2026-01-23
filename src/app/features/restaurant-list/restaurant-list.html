@@ -1,1 +1,22 @@
-<p>restaurant-list works!</p>
+<div class="restaurant-container">
+    <h2>Nuestros Restaurantes</h2>
+
+    <div class="grid-restaurantes">
+        @for (res of restaurantes(); track res.id) {
+            <div class="card-restaurante">
+                <div class="imagen-placeholder">
+                    <img src="res.logo || 'assets/default-restaurante.png'" alt="logo de {{res.nombre}}"> 
+                </div>
+
+                <div class="info-card">
+                    <h3>{{res.nombre}}</h3>
+                    <p class="categoria">{{res.categoria}}</p>
+                    <p class="direccion">📍 {{ res.direccion }}</p>
+                    <button class="btn-ver-menu">Ver Menú</button>
+                </div>
+            </div>
+        } @empty {
+            <p>Cargando restaurantes...</p>
+        }
+    </div>
+</div>
