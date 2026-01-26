@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-category-filter',
   imports: [],
   templateUrl: './category-filter.html',
-  styleUrl: './category-filter.css',
+  styleUrl: './category-filter.scss',
 })
 export class CategoryFilter {
 

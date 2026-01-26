@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { RestaurantListComponent } from './features/restaurant-list/restaurant-list';
+import { RestaurantListModule } from './features/restaurant-list/restaurant-list';
 import { MenuComponent } from './pages/menu/menu';
 
 export const routes: Routes = [
-  { path: '', component: RestaurantListComponent },
+  { path: '', component: RestaurantListModule },
   { path: 'menu/:id/:slug', component: MenuComponent },
 ];

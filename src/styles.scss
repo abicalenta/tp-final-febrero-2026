@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+
+@use "tailwindcss";
+
+$primary-orange: #FF8C00; 
+$dark-bg: #1A1A1A;
+$text-white: #FFFFFF;
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 25px;
+
+  .nav-btn {
+    background: white;
+    color: #333;
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: 2px solid #FF8C00;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+    &:hover {
+      background: #FF8C00;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(255, 140, 0, 0.2);
+    }
+  }
+}
+
+// Definimos el color naranja que elegiste en Canva
+$naranja: #FF8C00;
+
+.contenedor-login {
+  @apply min-h-screen flex items-center justify-center bg-gray-100;
+}
+
+.card-login {
+  @apply bg-white p-8 rounded-2xl shadow-lg w-80 text-center;
+  
+  h1 {
+    @apply text-2xl font-bold mb-6 text-gray-800;
+  }
+}
+
+.mi-input {
+  @apply w-full mb-4 p-3 border border-gray-300 rounded-lg outline-none transition-all;
+  
+  &:focus {
+    border-color: $naranja;
+    @apply ring-1 ring-orange-400;
+  }
+}
+
+.mi-boton {
+  @apply w-full p-3 text-white font-bold rounded-lg transition-transform;
+  background-color: $naranja;
+  
+  &:hover {
+    @apply scale-105;
+    filter: brightness(1.1);
+  }
+}

@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { RestaurantListComponent } from "./features/restaurant-list/restaurant-list";
+import { RestaurantListModule } from "./features/restaurant-list/restaurant-list";
 
 @Component({
   selector: 'app-root',
-  imports: [RestaurantListComponent],
+  imports: [RestaurantListModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('tp-final-apps');
