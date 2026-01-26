@@ -1,11 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
-  selector: 'app-restaurants-list',
-  imports: [],
-  templateUrl: './restaurants-list.html',
-  styleUrl: './restaurants-list.css',
+  selector: 'app-restaurant-list',
+  standalone: true,
+  imports: [RouterLink, CommonModule],
+  templateUrl: './restaurant-list.html'
 })
-export class RestaurantsList {
-
-}

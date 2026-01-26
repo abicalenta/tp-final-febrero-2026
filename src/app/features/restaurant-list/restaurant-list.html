@@ -1,22 +1,16 @@
-<div class="restaurant-container">
-    <h2>Nuestros Restaurantes</h2>
+<section class="restaurants">
 
-    <div class="grid-restaurantes">
-        @for (res of restaurantes(); track res.id) {
-            <div class="card-restaurante">
-                <div class="imagen-placeholder">
-                    <img src="res.logo || 'assets/default-restaurante.png'" alt="logo de {{res.nombre}}"> 
-                </div>
+  <h1>Restaurants disponibles</h1>
 
-                <div class="info-card">
-                    <h3>{{res.nombre}}</h3>
-                    <p class="categoria">{{res.categoria}}</p>
-                    <p class="direccion">📍 {{ res.direccion }}</p>
-                    <button class="btn-ver-menu">Ver Menú</button>
-                </div>
-            </div>
-        } @empty {
-            <p>Cargando restaurantes...</p>
-        }
-    </div>
-</div>
+  <div class="grid">
+
+    @for (r of restaurants; track r.id) {
+      <a class="card" [routerLink]="['/menu', r.id, r.name]">
+        <h3>{{ r.name }}</h3>
+        <p>{{ r.description }}</p>
+      </a>
+    }
+
+  </div>
+
+</section>

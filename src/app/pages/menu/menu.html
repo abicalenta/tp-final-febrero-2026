@@ -1,34 +1,44 @@
-<section class="hero"></section>
+<section class="menu">
 
-<section class="menu-card">
+  <h2>Menú</h2>
 
-  <div class="restaurant-info">
-    <h1>Filippa’s</h1>
-    <p>Cucina Italiana</p>
+  <div class="categories">
+    <button (click)="loadProducts()">Todos</button>
+
+    @for (cat of categories; track cat.id) {
+      <button (click)="filterByCategory(cat.id)">
+        {{ cat.name }}
+      </button>
+    }
   </div>
 
-  <div class="order-type">
-    <button class="active">Delivery</button>
-    <button>Take Away</button>
+  <div class="products">
+
+    @for (product of products; track product.id) {
+      <article class="product-card">
+
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+
+        <div class="price">
+          ${{ product.price }}
+        </div>
+
+        @if (product.discount) {
+          <span class="badge discount">
+            -{{ product.discount }}%
+          </span>
+        }
+
+        @if (product.happyHour) {
+          <span class="badge happy">
+            Happy Hour
+          </span>
+        }
+
+      </article>
+    }
+
   </div>
-
-  <input class="address" placeholder="Ingresar dirección">
-
-</section>
-
-<section class="categories">
-  <button (click)="showAll()">Todos</button>
-  <button *ngFor="let c of categories"
-          (click)="filterByCategory(c)">
-    {{ c }}
-  </button>
-</section>
-
-<section class="products">
-
-  <app-product-card
-      *ngFor="let p of filtered"
-      [product]="p">
-  </app-product-card>
-
+  
 </section>
