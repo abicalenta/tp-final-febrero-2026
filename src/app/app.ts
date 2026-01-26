@@ -4,7 +4,7 @@ import { RestaurantListModule } from "./features/restaurant-list/restaurant-list
 
 @Component({
   selector: 'app-root',
-  imports: [RestaurantListModule],
+  imports: [RestaurantListModule, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
