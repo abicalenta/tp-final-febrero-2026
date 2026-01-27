@@ -1,10 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
 
-@use "tailwindcss";
+@import "tailwindcss"; 
 
 $primary-orange: #FF8C00; 
 $dark-bg: #1A1A1A;
 $text-white: #FFFFFF;
+$naranja: #FF8C00;
+
 
 .nav-container {
   display: flex;
@@ -17,50 +18,71 @@ $text-white: #FFFFFF;
     color: #333;
     padding: 12px 24px;
     border-radius: 30px;
-    border: 2px solid #FF8C00;
+    border: 2px solid $primary-orange;
     font-weight: 600;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 
     &:hover {
-      background: #FF8C00;
+      background: $primary-orange;
       color: white;
       transform: translateY(-3px);
       box-shadow: 0 6px 12px rgba(255, 140, 0, 0.2);
     }
   }
 }
-
-// Definimos el color naranja que elegiste en Canva
-$naranja: #FF8C00;
-
 .contenedor-login {
-  @apply min-h-screen flex items-center justify-center bg-gray-100;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6; 
 }
 
 .card-login {
-  @apply bg-white p-8 rounded-2xl shadow-lg w-80 text-center;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem; 
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  width: 20rem; 
+  text-align: center;
   
   h1 {
-    @apply text-2xl font-bold mb-6 text-gray-800;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #1f2937; 
   }
 }
 
 .mi-input {
-  @apply w-full mb-4 p-3 border border-gray-300 rounded-lg outline-none transition-all;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.3s;
   
   &:focus {
     border-color: $naranja;
-    @apply ring-1 ring-orange-400;
+    box-shadow: 0 0 0 1px #fb923c; 
   }
 }
 
 .mi-boton {
-  @apply w-full p-3 text-white font-bold rounded-lg transition-transform;
+  width: 100%;
+  padding: 0.75rem;
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 0.5rem;
   background-color: $naranja;
+  transition: transform 0.2s;
+  cursor: pointer;
   
   &:hover {
-    @apply scale-105;
+    transform: scale(1.05);
     filter: brightness(1.1);
   }
 }
