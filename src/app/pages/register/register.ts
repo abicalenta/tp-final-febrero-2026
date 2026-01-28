@@ -28,16 +28,21 @@ export class RegisterComponent {
     this.errorMessage.set('');
 
     try {
-      // form.value  para  los datos del HTML
+    
       const result = await this.authService.register(form.value);
       
       if (result) {
         this.router.navigate(['/login']);
       }
+      if (success) {
+      // 2. Si se guardó bien, vamos al login para que entre
+      this.router.navigate(['/login']);
+
     } catch (error) {
       this.errorMessage.set('Error al crear la cuenta. El email podría ya estar registrado.');
     } finally {
       this.isLoading.set(false);
     }
+  }
   }
 }

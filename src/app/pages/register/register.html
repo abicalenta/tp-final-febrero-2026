@@ -28,14 +28,7 @@
     <button type="submit" [disabled]="registerForm.invalid || isLoading()">
       @if (isLoading()) {
         <span class="loader">Procesando ... </span>
-      } @else {
-        Registrarme
-      }
-    </button>
-
-    <p class="footer">¿Ya tenés cuenta? <a routerLink="/login">Iniciá sesión</a></p>
-  </form>
-</div>
+      } 
 
 <button type="submit" [disabled]="registerForm.invalid || isLoading()" class="submit-button">
   {{ isEditing() ? 'Guardar Cambios' : 'Registrarse' }}
@@ -46,6 +39,4 @@
   <a routerLink="/login" class="link">Iniciá sesión acá</a>
 </p>
 
-<button type="submit" [disabled]="registerForm.invalid || isLoading()" class="submit-button">
-  {{ isEditing() ? 'Guardar Cambios' : 'Registrarse' }}
-</button>
+
