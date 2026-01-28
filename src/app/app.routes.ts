@@ -8,6 +8,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'menu/:id/:slug', component: MenuComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'restaurant/:id/:name', component: RestaurantMenuComponent },
 ];
 
 

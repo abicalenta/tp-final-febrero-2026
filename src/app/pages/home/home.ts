@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Restaurant } from '../../core/services/restaurant';
+
 
 
 
@@ -14,7 +14,7 @@ import { Restaurant } from '../../core/services/restaurant';
 })
 export class HomeComponent implements OnInit {
 
-  // Usamos signals para manejar el estado, como en tus otros componentes
+  // samos signals para manejar el estado
   restaurants = signal<Restaurant[]>([]);
   isLoading = signal(true);
 

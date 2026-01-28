@@ -2,9 +2,10 @@ import { Component, inject, input, viewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router'; 
 import { CommonModule } from '@angular/common';
-import { CategoriesService } from '../../../core/services/category';
-import { AuthService } from '../../../core/services/auth';
-import { Category, NewCategory } from '../../../interfaces/category.interface';
+import { AuthService } from '../../../core/services/auth-service';
+import { CategoriesService } from '../../../core/services/category-service';
+import { Category, NewCategory } from '../../../interfaces/Category';
+
 
 
 
@@ -37,8 +38,6 @@ export class CategoriaPagina {
         this.router.navigate(['/login']);
         return;
       }
-
-
 await this.categoryService.getCategoriesByRestaurant(+userId);
       const allCategories = this.categoryService.categories();
 
@@ -84,7 +83,7 @@ await this.categoryService.getCategoriesByRestaurant(+userId);
         // MODO CREACIÓN
         const nuevaCategory: NewCategory = {
           name: form.value.name,
-          restaurantId: userId,
+          restaurantId: +userId,
         };
         res = await this.categoryService.addCategory(nuevaCategory);
       }

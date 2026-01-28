@@ -2,7 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../../core/services/auth';
+import { AuthService } from '../../core/services/auth-service';
+
 
 @Component({
   selector: 'app-login',
@@ -19,20 +20,21 @@ export class LoginComponent {
   errorMessage = signal('');
 
   async onLogin(form: NgForm) {
-    if (form.invalid) return;
-    this.isLoading.set(true);
-    
-    try {
-      const success = await this.authService.login(form.value);
-      if (success) {
-        this.router.navigate(['/home']);
-      } else {
-        this.errorMessage.set('Usuario o contraseña incorrectos.');
-      }
-    } catch (error) {
-      this.errorMessage.set('Error de conexión.');
-    } finally {
-      this.isLoading.set(false);
+  if (form.invalid) return;
+  this.isLoading.set(true);
+
+  try {
+    const success = await this.authService.login(form.value);
+    if (success) {
+      // REDIRECCIÓN DIRECTA: Cambiá '/home' por la ruta de tu lista
+      this.router.navigate(['/restaurant-list']); 
+    } else {
+      this.errorMessage.set('Credenciales incorrectas.');
     }
+  } catch (error) {
+    this.errorMessage.set('Error de conexión.');
+  } finally {
+    this.isLoading.set(false);
   }
+}
 }
