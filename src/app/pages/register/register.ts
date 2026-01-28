@@ -25,7 +25,7 @@ export class RegisterComponent {
     this.errorMessage.set('');
 
     try {
-      // Usamos 'as any' para evitar el error de tipo unknown en el TP
+      // 'as any' para evitar el error de tipo unknown en el TP
       const result = await (this.authService.register(form.value) as any);
       
       if (result) {

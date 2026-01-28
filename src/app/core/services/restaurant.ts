@@ -4,5 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class Restaurant {
+imageUrl: any;
+address: any;
+name: any;
+id: any;
   
 }

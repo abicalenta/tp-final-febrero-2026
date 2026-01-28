@@ -6,9 +6,23 @@ export interface Category {
 
 export interface NewCategory {
   name: string;
-  restaurantId: number;
+  restaurantId: string;
 }
 
 export interface UpdateCategoryRequestDto {
   name: string;
+}
+
+export interface LoginData { 
+  email: string;
+  password: string;
+}
+
+export interface restaurantId { 
+  email: string;
+  password: string;
+}
+
+export interface userId {
+
 }

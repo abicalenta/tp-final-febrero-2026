@@ -1,5 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { AuthService } from './auth';
+import { Category, NewCategory, UpdateCategoryRequestDto } from '../../interfaces/category.interface';
+
 
 
 
@@ -11,7 +13,7 @@ export class CategoriesService {
   authService = inject(AuthService);
   categories = signal<Category[]>([]);
   
-  readonly API_USERS_URL = "https://w370351.ferozo.com/api/Users";
+  readonly API_USERS_URL = "https://w370351.ferozo.com/api/User";
   readonly API_CATEGORIES_URL = "https://w370351.ferozo.com/api/Categories";
 
   async getCategoriesByRestaurant(restaurantId: number) {
@@ -115,8 +117,11 @@ export class CategoriesService {
     }
   }
 }
-import { from } from 'rxjs';
-import { Category, NewCategory, UpdateCategoryRequestDto } from '../../interfaces/category.interface';
 
-export type { NewCategory };
+
+
+
+
+
+
 

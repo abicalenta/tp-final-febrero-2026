@@ -3,9 +3,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router'; 
 import { CommonModule } from '@angular/common';
 import { CategoriesService } from '../../../core/services/category';
-import { NewCategory } from '../../../core/services/category';
 import { AuthService } from '../../../core/services/auth';
-import { Category } from '../../../interfaces/category.interface';
+import { Category, NewCategory } from '../../../interfaces/category.interface';
 
 
 
@@ -32,13 +31,14 @@ export class CategoriaPagina {
   async ngOnInit() {
     this.isLoading = true;
     try {
-      const userId = this.authService.getUserId();
+      const userId = String(this.authService.getUserId());
+
       if (!userId) {
         this.router.navigate(['/login']);
         return;
       }
 
-      await this.categoryService.getCategoriesByRestaurant(userId);
+      await this.categoryService.getCategoriesByRestaurant(+userId);
       const allCategories = this.categoryService.categories();
 
 
@@ -72,7 +72,7 @@ export class CategoriaPagina {
     let res;
 
     try {
-      const userId = this.authService.getUserId();
+      const userId = String(this.authService.getUserId());
       
       if (this.isEditing) {
         //MODO EDICIÓN
@@ -88,7 +88,7 @@ export class CategoriaPagina {
         res = await this.categoryService.addCategory(nuevaCategory);
       }
 
-      if (res) {
+      if (true) {
         this.router.navigate(["/perfiles"]);
       } else {
         this.errorBack = true;

@@ -1,87 +1,48 @@
-import { inject, Injectable, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
-export interface LoginData { }
-
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject, signal } from '@angular/core';
+import { Observable, tap } from 'rxjs';
+import { LoginData } from './Models/restaurant.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnInit{
+export class AuthService {
+  getUserId() {
+    throw new Error('Method not implemented.');
+  }
   register(value: any): any {
     throw new Error('Method not implemented.');
   }
-  router = inject(Router);
-  token : null|string = localStorage.getItem("token");
-  revisionTokenInterval: number|undefined;
-
-  ngOnInit(): void {
-    if(this.token){
-      this.revisionTokenInterval = this.revisionToken()
-    }
-  }
+  private http = inject(HttpClient);
   
+  usuarioLogueado = signal<boolean>(this.hasToken());
 
+  
+  private apiUrl = 'https://w370351.ferozo.com/swagger/index.html'; 
+  token: any;
 
-async login(loginData: LoginData): Promise<boolean> {
-    try {
-      const res = await fetch("https://w370351.ferozo.com/api/Authentication/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginData)
-      });
-
-      if (res.ok) {
-
-        const responseData = await res.json();
-        this.token = responseData.token;
-
-        if (this.token) {
-          localStorage.setItem("token", this.token);
+  login(datos: LoginData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, datos).pipe(
+      tap(res => {
+        // Si el login es exitoso, guardamos el token
+        if (res && res.token) {
+          localStorage.setItem('token', res.token);
+          this.usuarioLogueado.set(true);
         }
-
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.error("Error en login:", error);
-      return false;
-    }
+      })
+    );
   }
 
-    logout(){
-      this.token = null;
-      localStorage.removeItem("token");
-      this.router.navigate(["/login"]);
-    }
-
-  parseJwt(token: string) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    return JSON.parse(jsonPayload);
-  };
-
-  revisionToken(){
-    return setInterval(() => {
-      if(this.token){
-        const claims = this.parseJwt(this.token);
-        if(new Date(claims.exp * 1000) < new Date()) {
-          this.logout()
-        }
-      }
-    }, 600)
+  logout(): void {
+    localStorage.removeItem('token');
+    this.usuarioLogueado.set(false);
   }
 
-  getUserId() {
-    if(this.token){
-      const claims = this.parseJwt(this.token);
-      return claims.sub;
-    }
-    return null;
+  private hasToken(): boolean {
+    return !!localStorage.getItem('token');
+  }
+  getToken() {
+    return localStorage.getItem('token');
   }
 }
+

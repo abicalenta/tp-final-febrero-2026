@@ -1,0 +1,32 @@
+<div class="homeContainer">
+  <section class="hero">
+    <div class="heroContent">
+      <h1>¡Tu menú digital favorito!</h1>
+      <p>Descubrí los mejores restaurantes y explorá sus platos desde la comodidad de tu mesa.</p>
+      <button routerLink="/restaurant-list" class="btnPrimary">Explorar Restaurantes</button>
+    </div>
+  </section>
+
+  <section class="featured">
+    <h2>Restaurantes Destacados</h2>
+
+    @if (isLoading()) {
+      <div class="loader">Cargando restaurantes...</div>
+    } @else {
+      <div class="grid">
+        @for (item of restaurants(); track item.id) {
+          <div class="card" [routerLink]="['/restaurant', item.id]">
+            <img [src]="item.imageUrl || 'assets/no-image.jpg'" [alt]="item.name">
+            <div class="cardInfo">
+              <h3>{{ item.name }}</h3>
+              <p>{{ item.address }}</p>
+              <span class="badge">Ver Menú</span>
+            </div>
+          </div>
+        } @empty {
+          <p>No hay restaurantes disponibles en este momento.</p>
+        }
+      </div>
+    }
+  </section>
+</div>
