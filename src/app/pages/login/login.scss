@@ -1,127 +1,38 @@
-// Variables de diseño para facilitar cambios rápidos
-$primary-color: #6200ee; // Color principal de marca
-$primary-hover: #3700b3;
-$error-color: #b00020;
-$text-color: #333;
-$label-color: #666;
-$border-color: #ccc;
-$bg-card: #ffffff;
-
-.registerContainer {
-  max-width: 450px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: $bg-card;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Roboto, sans-serif;
-
-  .formTitle {
-    text-align: center;
-    color: $text-color;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-  }
-
-  .formContent {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-
-    .inputGroup {
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  .auth-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 400px;
+    .form-title { text-align: center; margin-bottom: 2rem; color: #333; }
+    .form-content {
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
-
-      .inputLabel {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: $label-color;
-      }
-
-      .inputField {
-        padding: 0.8rem;
-        border: 1px solid $border-color;
-        border-radius: 6px;
-        font-size: 1rem;
-        transition: border-color 0.3s, box-shadow 0.3s;
-
-        &:focus {
-          outline: none;
-          border-color: $primary-color;
-          box-shadow: 0 0 0 3px rgba(98, 0, 238, 0.1);
-        }
-
-        // Estilo cuando el campo es inválido y fue tocado
-        &.ng-invalid.ng-touched {
-          border-color: $error-color;
+      gap: 1.5rem;
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        .input-label { font-weight: 600; color: #666; font-size: 0.9rem; }
+        .input-field { 
+          padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px; 
+          background-color: #f0f2f9; // Lila claro de tu registro
         }
       }
-    }
-
-    .divider {
-      border: 0;
-      border-top: 1px solid #eee;
-      margin: 1rem 0;
-    }
-
-    .noteText {
-      font-size: 0.85rem;
-      color: $label-color;
-      line-height: 1.4;
-      margin: 0;
-    }
-
-    .errorMessage {
-      color: $error-color;
-      font-size: 0.85rem;
-      font-weight: bold;
-      text-align: center;
-      background-color: rgba($error-color, 0.1);
-      padding: 0.6rem;
-      border-radius: 4px;
-    }
-
-    .submitButton {
-      padding: 1rem;
-      background-color: $primary-color;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.1s;
-
-      &:hover:not(:disabled) {
-        background-color: $primary-hover;
+      .submit-button {
+        padding: 0.9rem; background: #6200ee; color: white; border: none;
+        border-radius: 8px; font-weight: bold; cursor: pointer;
+        &:disabled { opacity: 0.6; }
       }
-
-      &:active:not(:disabled) {
-        transform: scale(0.98);
-      }
-
-      &:disabled {
-        background-color: #e0e0e0;
-        color: #9e9e9e;
-        cursor: not-allowed;
-      }
-    }
-  }
-
-  .loginText {
-    text-align: center;
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-    color: $label-color;
-
-    .link {
-      color: $primary-color;
-      text-decoration: none;
-      font-weight: bold;
-
-      &:hover {
-        text-decoration: underline;
+      .footer-text {
+        text-align: center; font-size: 0.9rem;
+        .link { color: #6200ee; font-weight: bold; text-decoration: none; }
       }
     }
   }

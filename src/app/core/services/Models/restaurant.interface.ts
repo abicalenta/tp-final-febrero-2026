@@ -10,9 +10,10 @@ export interface Restaurant {
   restaurantName: string;
 }
 
-export interface LoginData { // <-- El 'export' es obligatorio
+export interface LoginData { 
   email: string;
   password: string;
+  username: string
 }
 
 export interface RegistroData {
@@ -23,4 +24,5 @@ export interface RegistroData {
   phoneNumber: string;
   password: string;
   password2?: string;
+  
 }

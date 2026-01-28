@@ -3,6 +3,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { LoginData } from './Models/restaurant.interface';
 
+
 @Injectable({
   providedIn: 'root'
 })

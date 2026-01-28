@@ -1,65 +1,23 @@
-<div class="registerContainer"> 
-  @if(isEditing()){
-    <h1 class="formTitle">✏️ Editar Perfil</h1>
-  } @else {
-    <h1 class="formTitle">Registrarse</h1>
-  }
-
-  <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)" class="formContent">
-    
-    <div class="inputGroup">
-      <label for="restaurantName" class="inputLabel">Nombre del restaurante</label>
-      <input id="restaurantName" name="restaurantName" type="text" required minlength="3"
-             [ngModel]="userData().restaurantName" class="inputField" #restaurantName="ngModel">
-    </div>
-
-    <div class="inputGroup">
-      <label for="firstName" class="inputLabel">Nombre del Dueño</label>
-      <input id="firstName" name="firstName" type="text" required
-             [ngModel]="userData().firstName" class="inputField">
-    </div>
-
-    <div class="inputGroup">
-      <label for="lastName" class="inputLabel">Apellido</label>
-      <input id="lastName" name="lastName" type="text" required
-             [ngModel]="userData().lastName" class="inputField">
-    </div>
-
-    <div class="inputGroup">
-      <label for="address" class="inputLabel">Dirección</label>
-      <input id="address" name="address" type="text" required
-             [ngModel]="userData().address" class="inputField">
-    </div>
-
-    <div class="inputGroup">
-      <label for="phoneNumber" class="inputLabel">Teléfono</label>
-      <input id="phoneNumber" name="phoneNumber" type="text" required minlength="4"
-             [ngModel]="userData().phoneNumber" class="inputField">
-    </div>
-
-    <hr class="divider">
-    <p class="noteText">
-      {{ isEditing() ? 'Ingresa tu contraseña actual (o una nueva) para guardar cambios:' : 'Crea una contraseña:' }}
-    </p>
-
-    <div class="inputGroup">
-      <label for="password" class="inputLabel">Contraseña</label>
-      <input id="password" name="password" type="password" required minlength="4"
-             [ngModel]="userData().password" class="inputField">
-    </div>
-
-    <div class="inputGroup">
-      <label for="password2" class="inputLabel">Repetir Contraseña</label>
-      <input id="password2" name="password2" type="password" required
-             [ngModel]="userData().password2" class="inputField">
-    </div>
-
-    @if (errorMessage()) {
-      <p class="errorMessage">{{ errorMessage() }}</p>
-    }
-
-    <button type="submit" [disabled]="registerForm.invalid || isLoading()" class="submitButton">
-      @if(isLoading()){}
-      {{ isEditing() ? 'Guardar Cambios' : 'Registrarse' }}
+<div class="auth-container">
+  <div class="auth-card">
+    <h1 class="form-title">Iniciar Sesión</h1>
+    <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="form-content">
+      <div class="input-group">
+        <label for="username" class="input-label">Nombre de usuario</label>
+        <input id="username" name="username" type="text" required ngModel class="input-field">
+      </div>
+      <div class="input-group">
+        <label for="password" class="input-label">Contraseña</label>
+        <input id="password" name="password" type="password" required ngModel class="input-field">
+      </div>
+      @if (errorMessage()) { <p class="error-message">{{ errorMessage() }}</p> }
+      <button type="submit" [disabled]="loginForm.invalid || isLoading()" class="submit-button">
+      {{ isLoading() ? 'Cargando...' : 'Entrar' }}
     </button>
 
+    <p class="footer-text">
+      ¿No tenés cuenta? 
+      <a routerLink="/register" class="link">Registrate acá</a>
+    </p>
+  </form>
+</div>

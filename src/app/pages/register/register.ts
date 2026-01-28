@@ -12,6 +12,9 @@ import { AuthService } from '../../core/services/auth';
   styleUrl: './register.scss'
 })
 export class RegisterComponent {
+  // 1. Cambiamos isEditing a un Signal para que el HTML funcione
+  isEditing = signal(false); 
+  
   private authService = inject(AuthService);
   private router = inject(Router);
 
@@ -25,8 +28,8 @@ export class RegisterComponent {
     this.errorMessage.set('');
 
     try {
-      // 'as any' para evitar el error de tipo unknown en el TP
-      const result = await (this.authService.register(form.value) as any);
+      // form.value  para  los datos del HTML
+      const result = await this.authService.register(form.value);
       
       if (result) {
         this.router.navigate(['/login']);

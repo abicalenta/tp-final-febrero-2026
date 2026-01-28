@@ -38,7 +38,8 @@ export class CategoriaPagina {
         return;
       }
 
-      await this.categoryService.getCategoriesByRestaurant(+userId);
+
+await this.categoryService.getCategoriesByRestaurant(+userId);
       const allCategories = this.categoryService.categories();
 
 
