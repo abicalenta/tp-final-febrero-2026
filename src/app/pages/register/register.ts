@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../core/services/auth-service';
+import { FieldTree, form, FormOptions, SchemaOrSchemaFn } from '@angular/forms/signals';
+
 
 
 @Component({
@@ -12,13 +13,10 @@ import { AuthService } from '../../core/services/auth-service';
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })
-export class RegisterComponent {
-  private authService = inject(AuthService);
-  private router = inject(Router);
 
-  isEditing = signal(false); 
-  isLoading = signal(false);
-  errorMessage = signal('');
+  const isEditing = signal(false); 
+  const isLoading = signal(false);
+  const errorMessage = signal(false);
 
   async onRegister(form: NgForm) {
     if (form.invalid) return;
@@ -37,5 +35,8 @@ export class RegisterComponent {
     } finally {
       this.isLoading.set(false);
     }
-  } 
-} 
+  }
+
+function onRegister(form: { <TModel>(model: WritableSignal<TModel>): FieldTree<TModel>; <TModel>(model: WritableSignal<TModel>, schemaOrOptions: SchemaOrSchemaFn<TModel> | FormOptions): FieldTree<TModel>; <TModel>(model: WritableSignal<TModel>, schema: SchemaOrSchemaFn<TModel>, options: FormOptions): FieldTree<TModel>; }, NgForm: typeof NgForm) {
+  throw new Error('Function not implemented.');
+}

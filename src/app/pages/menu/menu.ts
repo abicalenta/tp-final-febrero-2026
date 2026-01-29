@@ -11,14 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 export class MenuComponent implements OnInit {
 
   restaurantId!: number;
-
   categories: any[] = [];
   products: any[] = [];
-
-  constructor(
-    private route: ActivatedRoute,
-    private menuService: MenuService
-  ) {}
+  route: any;
+  menuService: any;
 
   ngOnInit(): void {
     this.restaurantId = Number(this.route.snapshot.paramMap.get('id'));

@@ -59,7 +59,7 @@ export class Productos implements OnInit {
     this.isLoading = true;
 
     const nuevoProducto: NewProduct = {
-      name: form.value.name, 
+      name: form.value.name,
       description: form.value.description,
       price: parseInt(form.value.price),
       featured: form.value.featured === true,
@@ -69,7 +69,8 @@ export class Productos implements OnInit {
       categoryId: parseInt(form.value.categoryId),
       restaurantId: this.authService.getUserId(),
       labels: [],
-      isDestacado: form.value.featured === true 
+      isDestacado: form.value.featured === true,
+      imageUrl: ''
     };
 
     let res;

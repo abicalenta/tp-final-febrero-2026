@@ -14,7 +14,7 @@
       <div class="loader">Cargando restaurantes...</div>
     } @else {
       <div class="grid">
-        @for (item of restaurants(); track item.id) {
+        @for (item of Restaurants(); track item.id) {
           <div class="card" [routerLink]="['/restaurant', item.id]">
             <img [src]="item.imageUrl || 'assets/no-image.jpg'" [alt]="item.name">
             <div class="cardInfo">

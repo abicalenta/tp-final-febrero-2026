@@ -1,6 +1,7 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
 
 
 
@@ -13,9 +14,9 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home.scss'
 })
 export class HomeComponent implements OnInit {
+[x: string]: any;
 
   // samos signals para manejar el estado
-  restaurants = signal<Restaurant[]>([]);
   isLoading = signal(true);
 
   ngOnInit(): void {

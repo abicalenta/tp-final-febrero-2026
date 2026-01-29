@@ -11,5 +11,7 @@ export interface Product {
         id: number,
         isDestacado: boolean,
         restaurantId: number,
-      }
+        imageUrl: string;
+}
+
 export type NewProduct = Omit<Product, "id">;
