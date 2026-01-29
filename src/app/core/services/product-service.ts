@@ -12,7 +12,7 @@ export class ProductService {
   authService = inject(AuthService);
 
   Product: Product[] = [];
-  async addProduct (NewProduct:NewProduct) {
+  async addProduct (NewProduct: any) {
     const res = await fetch("https://w370351.ferozo.com/api/products",
       {
         method: "POST",
@@ -62,7 +62,6 @@ export class ProductService {
     }
   }
   
-
 
   async getProductById(id: string | number) {
     const res = await fetch(`https://w370351.ferozo.com/api/products/${id}`, {

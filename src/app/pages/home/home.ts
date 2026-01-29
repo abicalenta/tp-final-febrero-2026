@@ -3,9 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 
-
-
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -14,10 +11,12 @@ import { RouterModule } from '@angular/router';
   styleUrl: './home.scss'
 })
 export class HomeComponent implements OnInit {
-[x: string]: any;
 
-  // samos signals para manejar el estado
+
+  // 0signals para manejar el estado
   isLoading = signal(true);
+  Restaurants = signal<any[]>([]);
+
 
   ngOnInit(): void {
     this.loadFeaturedRestaurants();

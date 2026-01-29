@@ -1,10 +1,8 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { FieldTree, form, FormOptions, SchemaOrSchemaFn } from '@angular/forms/signals';
-
-
+import { AuthService } from '../../core/services/auth-service';
 
 @Component({
   selector: 'app-register',
@@ -13,10 +11,14 @@ import { FieldTree, form, FormOptions, SchemaOrSchemaFn } from '@angular/forms/s
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })
+export class RegisterComponent {
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
-  const isEditing = signal(false); 
-  const isLoading = signal(false);
-  const errorMessage = signal(false);
+  // Definimos signals para cumplir con Angular moderno
+  isEditing = signal(false); 
+  isLoading = signal(false);
+  errorMessage = signal('');
 
   async onRegister(form: NgForm) {
     if (form.invalid) return;
@@ -25,18 +27,17 @@ import { FieldTree, form, FormOptions, SchemaOrSchemaFn } from '@angular/forms/s
     this.errorMessage.set('');
 
     try {
+      // Usamos form.value para enviar los datos al servicio
       const result = await this.authService.register(form.value);
       
       if (result) {
+        // Redirección al login tras un registro exitoso
         this.router.navigate(['/login']);
       }
     } catch (error) {
-      this.errorMessage.set('Error al crear la cuenta. El email podría ya estar registrado.');
+      this.errorMessage.set('Error al procesar la solicitud.');
     } finally {
       this.isLoading.set(false);
     }
   }
-
-function onRegister(form: { <TModel>(model: WritableSignal<TModel>): FieldTree<TModel>; <TModel>(model: WritableSignal<TModel>, schemaOrOptions: SchemaOrSchemaFn<TModel> | FormOptions): FieldTree<TModel>; <TModel>(model: WritableSignal<TModel>, schema: SchemaOrSchemaFn<TModel>, options: FormOptions): FieldTree<TModel>; }, NgForm: typeof NgForm) {
-  throw new Error('Function not implemented.');
 }

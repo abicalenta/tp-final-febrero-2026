@@ -1,42 +1,43 @@
-<div class="register-container">
-  <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)" class="register-card">
-    <h2>Crear Cuenta</h2>
-    <p class="subtitle">Registrate para gestionar el menú de tu restaurante</p>
+<main class="auth-container">
+  <article class="auth-card">
+    <header>
+      <h1 class="form-title">{{ isEditing() ? 'Editar Perfil' : 'Crear Cuenta' }}</h1>
+      <p class="subtitle">Gestioná el menú de tu restaurante</p>
+    </header>
 
-    <div class="input-group">
-      <label for="name">Nombre Completo</label>
-      <input type="text" id="name" name="name" ngModel required #name="ngModel" placeholder="Tu nombre">
-      @if (name.invalid && name.touched) { <span class="error">El nombre es obligatorio.</span> }
-    </div>
+    <section>
+      <form #registerForm="ngForm" (ngSubmit)="onRegister(registerForm)" class="form-content">
+        
+        <div class="input-group">
+          <label for="restaurantName">Nombre del restaurante</label>
+          <input id="restaurantName" name="restaurantName" type="text" required ngModel class="input-field">
+        </div>
 
-    <div class="input-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" ngModel required email #email="ngModel" placeholder="correo@ejemplo.com">
-      @if (email.invalid && email.touched) { <span class="error">Ingresá un correo válido.</span> }
-    </div>
+        <div class="input-group">
+          <label for="firstName">Nombre del Dueño</label>
+          <input id="firstName" name="firstName" type="text" required ngModel class="input-field">
+        </div>
 
-    <div class="input-group">
-      <label for="password">Contraseña</label>
-      <input type="password" id="password" name="password" ngModel required minlength="6" #pass="ngModel" placeholder="Mínimo 6 caracteres">
-      @if (pass.invalid && pass.touched) { <span class="error">Mínimo 6 caracteres.</span> }
-    </div>
+        <div class="input-group">
+          <label for="password">Contraseña</label>
+          <input id="password" name="password" type="password" required ngModel class="input-field">
+        </div>
 
-    @if (errorMessage()) {
-      <div class="alert">{{ errorMessage() }}</div>
-    }
+        @if (errorMessage()) {
+          <p class="error-message">{{ errorMessage() }}</p>
+        }
 
-    <button type="submit" [disabled]="registerForm.invalid || isLoading()">
-      @if (isLoading()) {
-        <span class="loader">Procesando ... </span>
-      } 
+        <button type="submit" [disabled]="registerForm.invalid || isLoading()" class="submit-button">
+          {{ isLoading() ? 'Cargando...' : (isEditing() ? 'Guardar Cambios' : 'Registrarse') }}
+        </button>
+      </form>
+    </section>
 
-<button type="submit" [disabled]="registerForm.invalid || isLoading()" class="submit-button">
-  {{ isEditing() ? 'Guardar Cambios' : 'Registrarse' }}
-</button>
-
-<p class="footer-text">
-  ¿Ya tenés cuenta? 
-  <a routerLink="/login" class="link">Iniciá sesión acá</a>
-</p>
-
-
+    <footer>
+      <p class="footer-text">
+        ¿Ya tenés cuenta? 
+        <a routerLink="/login" class="link">Iniciá sesión acá</a>
+      </p>
+    </footer>
+  </article>
+</main>
