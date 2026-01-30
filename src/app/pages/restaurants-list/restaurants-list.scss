@@ -1,0 +1,145 @@
+// Variables de color (puedes ajustarlas a tu marca)
+$primary-color: #e67e22; // Naranja gastronómico
+$secondary-color: #2c3e50;
+$accent-color: #27ae60;
+$background-light: #f9f9f9;
+$error-color: #e74c3c;
+$white: #ffffff;
+$text-muted: #7f8c8d;
+
+.menuContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: $background-light;
+  min-height: 100vh;}
+
+  // --- Estados de Carga y Error ---
+  .loadingState, .errorState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+    text-align: center;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0,0,0,0.1);
+    border-top: 4px solid $primary-color;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+  }
+
+  // --- Header del Restaurante ---
+  .restaurantHeader {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+
+    .restaurantTitle {
+      font-size: 2.5rem;
+      color: $secondary-color;
+      margin-bottom: 10px;
+    }
+
+    .restaurantInfo {
+      .infoText {
+        display: inline-block;
+        margin: 0 15px;
+        color: $text-muted;
+        font-size: 0.95rem;
+      }
+    }
+  }
+
+  .sectionTitle {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: $secondary-color;
+  }
+
+  // --- Navegación de Categorías ---
+  .categoriesNav {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar { height: 6px; }
+
+    .categoryButton {
+      padding: 8px 20px;
+      border-radius: 25px;
+      border: 1px solid $primary-color;
+      background: transparent;
+      color: $primary-color;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba($primary-color, 0.1);
+      }
+
+      &.activeButton {
+        background: $primary-color;
+        color: $white;
+      }
+    }
+  }
+
+  // --- Lista de Productos ---
+  .productsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+
+    .productItem {
+      background: $white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      position: relative;
+      transition: transform 0.2s;
+
+      &:hover { transform: translateY(-5px); }
+
+      &.featuredBorder {
+        border: 2px solid $primary-color;
+      }
+    }
+  }
+
+  // --- Badges (Etiquetas) ---
+  .badgeContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      &.starBadge { background: #f1c40f; color: #000; }
+      &.fireBadge { background: $error-color; color: $white; }
+      &.hhBadge { background: #9b59b6; color: $white; }
+    }
+  }
+
+  .productTitle {
+    font-size: 1.3rem;
+    margin: 10px 0;
+    color: $secondary-color;
+  }

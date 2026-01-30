@@ -1,18 +1,133 @@
-.card-restaurante {
-  border: 1px solid #eaeaea;
-  transition: transform 0.3s ease;
-  &:hover {
-    transform: translateY(-5px); // Efecto de elevación al pasar el mouse
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+// Variables (manteniendo la paleta anterior)
+$primary-color: #e67e22;
+$secondary-color: #2c3e50;
+$text-dark: #333;
+$text-muted: #666;
+$bg-light: #f4f7f6;
+$white: #ffffff;
+$shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+.restaurantListContainer {
+  padding: 40px 20px;
+  background-color: $bg-light;
+  min-height: 80vh;
+
+  .cardGrid {
+    display: grid;
+    // Crea una grilla responsiva que se ajusta sola
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 }
 
-.btn-ver-menu {
-  background-color: #1a1a1a; // Negro sofisticado como Filipa's
-  color: white;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
+.cardWrapper {
+  display: flex;
+  height: 100%;
+}
+
+.restaurantCard {
+  background: $white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: $shadow;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0,0,0,0.05);
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .cardBody {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .cardTitle {
+      font-size: 1.4rem;
+      color: $secondary-color;
+      margin-bottom: 15px;
+      font-weight: 700;
+      border-bottom: 2px solid rgba($primary-color, 0.2);
+      padding-bottom: 10px;
+    }
+
+    .cardText {
+      font-size: 0.95rem;
+      color: $text-muted;
+      margin-bottom: 8px;
+      line-height: 1.5;
+
+      strong {
+        color: $text-dark;
+        font-weight: 600;
+      }
+    }
+
+    .menuButton {
+      margin-top: auto; // Empuja el botón siempre al fondo
+      padding: 12px;
+      background-color: $primary-color;
+      color: $white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}
+
+// Estilos para el enlace de retroceso
+.footerActions {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+
+  .backLink {
+    text-decoration: none;
+    color: $secondary-color;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+// Limpiar la lista vacía del @for (si no la usas para renderizar nada visible)
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+// Mobile
+@media (max-width: 480px) {
+  .restaurantListContainer {
+    padding: 20px 15px;
+    
+    .cardGrid {
+      grid-template-columns: 1fr; // Una sola columna en móviles chicos
+    }
+  }
 }

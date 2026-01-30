@@ -1,1 +1,90 @@
-<p>restaurants-list works!</p>
+<div class="menuContainer">
+  
+  @if(isLoading()){
+    <div class="loadingState">
+      <div class="spinner"></div>
+      <p class="loadingText">Cargando menú...</p>
+    </div>
+  } 
+  
+  @else if(!user()) {
+    <div class="errorState">
+      <p class="errorText">⚠️ No se encontró la información del restaurante.</p>
+      <button (click)="volver()" class="backButton">Volver</button>
+    </div>
+  } 
+  
+  @else {
+    <header class="restaurantHeader">
+      <h1 class="restaurantTitle">{{user()?.restaurantName}}</h1>
+      <div class="restaurantInfo">
+        <p class="infoText">📞 {{user()?.phoneNumber}}</p>
+        <p class="infoText">📍 {{user()?.address}}</p>
+      </div>
+    </header>
+        
+    <h2 class="sectionTitle">Nuestro Menú</h2>
+    
+    <div class="categoriesNav">
+      <button (click)="selectCategory(null)" class="categoryButton"
+              [class.activeButton]="selectedCategoryId() === null">
+        Todas
+      </button>
+
+      @for (category of categories(); track category.id) {
+        <button (click)="selectCategory(category.id)" class="categoryButton"
+                [class.activeButton]="selectedCategoryId() === category.id">
+          {{ category.name }}
+        </button>
+      }
+    </div>
+
+    <div class="productsList">
+      @for (producto of filteredProducts(); track producto.id) {
+        
+        <article class="productItem" 
+                 [class.featuredBorder]="producto.featured">
+          
+          <div class="cardContent">
+            <div class="badgeContainer">
+              @if(producto.featured){ <span class="badge starBadge">⭐ Destacado</span> }
+              @if(producto.discount){ <span class="badge fireBadge">{{producto.discount}}% OFF 🔥</span> }
+              @if(producto.hasHappyHour){ <span class="badge hhBadge">Happy Hour 🍻</span> }
+            </div>
+
+            <h4 class="productTitle">{{ producto.name }}</h4>
+            <p class="productDescription">{{ producto.description }}</p>
+            
+            @if (producto.recommendedFor) {
+              <div class="recommendationBox">
+                <span>🔔 Ideal para: {{ producto.recommendedFor }} personas</span>
+              </div>
+            }
+
+            <div class="priceContainer">
+              @if (producto.discount > 0 || producto.hasHappyHour) {
+                <span class="oldPrice">{{producto.price }}</span>
+                <span class="finalPrice">{{calculateFinalPrice(producto) }}</span>
+              } @else {
+                <span class="regularPrice">{{producto.price }}</span>
+              }
+
+              @if (producto.hasHappyHour) {
+                <span class="promoText">2x1</span> 
+              }
+            </div>
+          </div>
+          
+        </article>
+
+      } @empty {
+        <p class="noProductsText">No hay productos en esta categoría.</p>
+      }
+    </div>
+
+    <div class="footerActions">
+      <button class="backButton" (click)="volver()">⬅ Regresar a Restaurantes</button>       
+    </div>
+  }
+
+</div>
