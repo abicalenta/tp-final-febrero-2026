@@ -30,11 +30,11 @@ export class RegisterComponent {
       // Usamos form.value para enviar los datos al servicio
       const result = await this.authService.register(form.value);
       
-      if (result) {
-        // Redirección al login tras un registro exitoso
-        this.router.navigate(['/login']);
-      }
-    } catch (error) {
+      await 
+      this.authService.register(form.value);
+      this.router.navigate(['/login']);
+      } 
+    catch (error) {
       this.errorMessage.set('Error al procesar la solicitud.');
     } finally {
       this.isLoading.set(false);
