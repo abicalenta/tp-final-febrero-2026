@@ -11,11 +11,11 @@
   } 
   @else {
     @if (user()) {
-      <header class="restaurant-header">
-        <h1>{{ user()?.name }}</h1>
-        <p class="description">Bienvenido a nuestro menú digital</p>
-      </header>
-    }
+  <header class="restaurant-header">
+    <h1>Bienvenido, {{ user()?.name }}</h1> 
+    <p class="description">Bienvenido a nuestro menú digital</p>
+  </header>
+}
 
     <nav class="categories-nav">
       <button 

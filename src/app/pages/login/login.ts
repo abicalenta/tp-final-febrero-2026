@@ -26,7 +26,6 @@ export class LoginComponent {
   try {
     const success = await this.authService.login(form.value);
     if (success) {
-      // REDIRECCIÓN DIRECTA: Cambiá '/home' por la ruta de tu lista
       this.router.navigate(['/restaurant-list']); 
     } else {
       this.errorMessage.set('Credenciales incorrectas.');
