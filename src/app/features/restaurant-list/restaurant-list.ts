@@ -23,6 +23,10 @@ export class Restaurante implements OnInit{
     user = input.required<User>();
     router = inject (Router)
   
+    volver() {
+  console.log('volviendo al home...');
+  this.router.navigate(['/home']); 
+}
   
 
   viewMenu(id: number) {
