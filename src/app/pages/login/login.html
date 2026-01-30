@@ -4,20 +4,23 @@
     <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" class="form-content">
       <div class="input-group">
         <label for="username" class="input-label">Nombre de usuario</label>
-        <input id="username" name="username" type="text" required ngModel class="input-field">
+        <input id="username" name="userName" type="text" required ngModel class="input-field">
       </div>
       <div class="input-group">
         <label for="password" class="input-label">Contraseña</label>
         <input id="password" name="password" type="password" required ngModel class="input-field">
       </div>
+      
       @if (errorMessage()) { <p class="error-message">{{ errorMessage() }}</p> }
+      
       <button type="submit" [disabled]="loginForm.invalid || isLoading()" class="submit-button">
-      {{ isLoading() ? 'Cargando...' : 'Entrar' }}
-    </button>
+        {{ isLoading() ? 'Cargando...' : 'Entrar' }}
+      </button>
 
-    <p class="footer-text">
-      ¿No tenés cuenta? 
-      <a routerLink="/register" class="link">Registrate acá</a>
-    </p>
-  </form>
+      <p class="footer-text">
+        ¿No tenés cuenta? 
+        <a routerLink="/register" class="link">Registrate acá</a>
+      </p>
+    </form>
+  </div>
 </div>

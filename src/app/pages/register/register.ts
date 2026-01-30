@@ -15,27 +15,33 @@ export class RegisterComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  // Definimos signals para cumplir con Angular moderno
+  // Signals para reactividad (visto en la materia LND 2025)
   isEditing = signal(false); 
   isLoading = signal(false);
   errorMessage = signal('');
 
   async onRegister(form: NgForm) {
+    // 1. Validar que el formulario de Template Driven sea válido
     if (form.invalid) return;
 
     this.isLoading.set(true);
     this.errorMessage.set('');
 
     try {
-      // Usamos form.value para enviar los datos al servicio
-      const result = await this.authService.register(form.value);
+      // 2. Enviar los datos capturados en el HTML (userName, name, password)
+      const success = await this.authService.register(form.value);
       
-      await 
-      this.authService.register(form.value);
-      this.router.navigate(['/login']);
-      } 
+      if (success) {
+        console.log('✅ Registro exitoso');
+        // 3. Redirigir al login para que el usuario ingrese sus nuevas credenciales
+        this.router.navigate(['/login']);
+      } else {
+        this.errorMessage.set('No se pudo completar el registro. Intentalo de nuevo.');
+      }
+    } 
     catch (error) {
-      this.errorMessage.set('Error al procesar la solicitud.');
+      console.error('Error en el registro:', error);
+      this.errorMessage.set('Error de conexión con el servidor.');
     } finally {
       this.isLoading.set(false);
     }

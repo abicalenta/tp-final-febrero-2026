@@ -1,3 +1,12 @@
+<header class="user-welcome">
+  @if (authService.currentUser()) {
+    <h2>Hola, {{ authService.currentUser()?.name }}! 👋</h2>
+    <button class="btn-logout" (click)="authService.logout()">Cerrar Sesión</button>
+  } @else {
+    <h2>Bienvenido!</h2>
+  }
+</header>
+
 <div class="container">
   <button class="btn-back" (click)="volver()">
     ← Volver a Restaurantes

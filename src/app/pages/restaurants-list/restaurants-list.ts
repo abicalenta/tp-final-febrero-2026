@@ -46,6 +46,7 @@ export class VerRestaurante implements OnInit {
     }
     return currentProducts.filter(p => p.categoryId === selectedId);
   });
+authService: any;
 
   async ngOnInit() {
     // 1. Capturar el parámetro de la URL
