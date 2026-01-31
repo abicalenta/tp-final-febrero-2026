@@ -6,7 +6,6 @@ import { Productos } from './shared/components/product-card/product-card';
 import { LoginComponent } from './pages/login/login';
 import { RegisterComponent } from './pages/register/register';
 import { HomeComponent } from './pages/home/home';
-import { AdminDashboard } from './pages/admin-dashboard/admin-dashboard';
 import { authGuard } from './core/guards/auth.guard'; 
 
 export const routes: Routes = [
@@ -29,11 +28,6 @@ export const routes: Routes = [
     canActivate: [authGuard] 
   },
   {
-    path: "perfiles",
-    component: AdminDashboard,
-    canActivate: [authGuard]
-  },
-  {
     path: 'categoria-pagina/edit/:idCategory', 
     component: CategoriaPagina,
     canActivate: [authGuard] 
@@ -41,11 +35,6 @@ export const routes: Routes = [
   {
     path: 'productos/edit/:idProduct', 
     component: Productos,
-    canActivate: [authGuard]
-  },
-  {
-    path: 'perfiles/edit',
-    component: AdminDashboard, 
     canActivate: [authGuard]
   },
   {

@@ -4,7 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth-service';
 import { CategoriesService } from '../../../core/services/category-service';
-import { Category, NewCategory } from '../../../interfaces/Category';
+import { Category } from '../../../interfaces/Category';
 
 
 
@@ -47,8 +47,6 @@ await this.categoryService.getCategoriesByRestaurant(+userId);
       if (idParam && idParam !== 'nuevo') {
         this.isEditing = true;
 
-        this.categoryOriginal = allCategories.find(c => c.id === Number(idParam));
-
         if (this.categoryOriginal) {
           setTimeout(() => {
             this.form()?.setValue({
@@ -81,9 +79,10 @@ await this.categoryService.getCategoriesByRestaurant(+userId);
         res = await this.categoryService.updateCategory(Number(this.idCategory()), updateData);
       } else {
         // MODO CREACIÓN
-        const nuevaCategory: NewCategory = {
+        const nuevaCategory: Category = {
           name: form.value.name,
           restaurantId: +userId,
+          id: ''
         };
         res = await this.categoryService.addCategory(nuevaCategory);
       }

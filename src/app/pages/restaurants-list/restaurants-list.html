@@ -17,26 +17,24 @@
       <div class="spinner"></div>
       <p>Cargando el menú...</p>
     </div>
-  } 
-  @else {
-    @if (user()) {
-  <header class="restaurant-header">
-    <h1>Bienvenido, {{ user()?.name }}</h1> 
-    <p class="description">Bienvenido a nuestro menú digital</p>
-  </header>
-}
+  } @else { @if (user()) {
+      <header class="restaurant-header">
+        <h1>Bienvenido a {{ user()?.name }}</h1> 
+        <p class="description">Disfruta de nuestro menú digital</p>
+      </header>
+    }
 
     <nav class="categories-nav">
       <button 
         [class.active]="selectedCategoryId() === null" 
-        (click)="selectCategory(null)">
+        (click)="selectedCategoryId.set(null)">
         Todos
       </button>
-      
+
       @for (cat of categories(); track cat.id) {
         <button 
           [class.active]="selectedCategoryId() === cat.id"
-          (click)="selectCategory(cat.id)">
+          (click)="selectedCategoryId.set(cat.id)">
           {{ cat.name }}
         </button>
       }
@@ -63,5 +61,5 @@
         <p class="empty-msg">No hay productos disponibles en esta categoría.</p>
       }
     </section>
-  }
+  } 
 </div>

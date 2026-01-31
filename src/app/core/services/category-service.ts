@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { AuthService } from './auth-service';
-import { Category, NewCategory, UpdateCategoryRequestDto } from '../../interfaces/Category';
+import { Category } from '../../interfaces/Category';
 
 
 @Injectable({
@@ -27,7 +27,7 @@ export class CategoriesService {
     }
   }
 
-  async addCategory(category: NewCategory) {
+  async addCategory(category: Category) {
 
     if (!this.authService.token) {
       console.error("❌ ERROR: No hay token de autenticación.");
@@ -81,9 +81,6 @@ export class CategoriesService {
       }
 
       const updatedCategory = await res.json() as Category;
-      this.categories.update(currentCategories => 
-        currentCategories.map(cat => cat.id === id ? updatedCategory : cat)
-      );
       return updatedCategory;
     } catch (error) {
       console.error(error);
@@ -104,9 +101,6 @@ export class CategoriesService {
       if (!res.ok) return false;
 
       const numId = Number(id);
-      this.categories.update(currentCategories => 
-        currentCategories.filter(cat => cat.id !== numId)
-      );
       return true;
     } catch (error) {
       console.error(error);
