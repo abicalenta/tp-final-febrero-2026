@@ -1,38 +1,32 @@
+// auth-service.ts
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginData } from '../../interfaces/auth';
 import { User } from '../../interfaces/user';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   private router = inject(Router);
   
-  // Usamos Signals para reactividad moderna (visto en LND 2025)
   currentUser = signal<User | null>(null);
   token = signal<string | null>(localStorage.getItem("token"));
-  
   private revisionTokenInterval: any;
-  register: any;
 
   constructor() {
     this.checkInitialSession();
   }
 
-  // Método requerido por el AuthGuard para validar acceso
   isLoggedIn(): boolean {
     return !!this.token();
   }
 
-  // Recupera el ID del usuario desde el JWT
   getUserId(): string | null {
     const currentToken = this.token();
-    if (currentToken) {
+    if (!currentToken) return null;
+    try {
       const claims = this.parseJwt(currentToken);
-      return claims.sub;
-    }
-    return null;
+      return claims.sub || claims.id || null;
+    } catch { return null; }
   }
 
   private checkInitialSession() {
@@ -40,19 +34,13 @@ export class AuthService {
     if (savedToken) {
       try {
         const userData = this.parseJwt(savedToken);
-        this.currentUser.set({
-          id: userData.sub,
-          name: userData.name || userData.unique_name || 'Usuario',
-          email: userData.email
-        } as unknown as User);
+        this.currentUser.set(userData);
         this.startTokenRevision();
-      } catch (e) {
-        this.logout();
-      }
+      } catch (e) { this.logout(); }
     }
   }
 
-  async login(loginData: LoginData): Promise<boolean> {
+  async login(loginData: any): Promise<boolean> {
     try {
       const res = await fetch("https://w370351.ferozo.com/api/Authentication/login", {
         method: "POST",
@@ -64,21 +52,21 @@ export class AuthService {
         const responseData = await res.json();
         localStorage.setItem("token", responseData.token);
         this.token.set(responseData.token);
-        
-        const userData = this.parseJwt(responseData.token);
-        this.currentUser.set({
-          id: userData.sub,
-          name: userData.name || userData.unique_name || 'Usuario',
-          email: userData.email
-        } as unknown as User);
-
+        this.currentUser.set(this.parseJwt(responseData.token));
         this.startTokenRevision();
         return true;
       }
       return false;
-    } catch (error) {
-      return false;
-    }
+    } catch { return false; }
+  }
+
+  async register(data: any): Promise<boolean> {
+    const res = await fetch("https://w370351.ferozo.com/api/users", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    return res.ok;
   }
 
   logout() {
@@ -92,10 +80,7 @@ export class AuthService {
   private parseJwt(token: string) {
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(c => {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
+    return JSON.parse(window.atob(base64));
   }
 
   private startTokenRevision() {
@@ -104,7 +89,7 @@ export class AuthService {
       const currentToken = this.token();
       if (currentToken) {
         const claims = this.parseJwt(currentToken);
-        if (new Date(claims.exp * 1000) < new Date()) this.logout();
+        if (claims.exp * 1000 < Date.now()) this.logout();
       }
     }, 10000);
   }

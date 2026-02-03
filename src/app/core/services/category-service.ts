@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { AuthService } from './auth-service';
 import { Category } from '../../interfaces/Category';
+import id from '@angular/common/locales/id';
 
 
 @Injectable({
@@ -26,54 +27,18 @@ export class CategoriesService {
       console.error("Error obteniendo categorías:", error);
     }
   }
+async addCategory(category: Category) {
+  const token = this.authService.token(); // <--- IMPORTANTE: Llamar al signal
+  if (!token) return undefined;
 
-  async addCategory(category: Category) {
-
-    if (!this.authService.token) {
-      console.error("❌ ERROR: No hay token de autenticación.");
-      return undefined;
-    }
-
-    try {
-      const res = await fetch(this.API_CATEGORIES_URL, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': "Bearer " + this.authService.token 
-        },
-        body: JSON.stringify(category)
-      });
-
-      if (!res.ok) {
-        console.error("❌ Error del servidor:", res.status, res.statusText);
-        const errorText = await res.text();
-        console.error("Detalle del error:", errorText);
-        return undefined;
-      }
-      
-      const newCategory: Category = await res.json();
-      
-      this.categories.update(current => [...current, newCategory]);
-      return newCategory;
-
-    } catch (error) {
-      console.error("❌ Error de red:", error);
-      return undefined;
-    }
-  }
-
-  async updateCategory(id: number, categoryData: UpdateCategoryRequestDto) {
-    if (!this.authService.token) return undefined;
-
-    try {
-      const res = await fetch(this.API_CATEGORIES_URL + "/" + id, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': "Bearer " + this.authService.token
-        },
-        body: JSON.stringify(categoryData)
-      });
+  const res = await fetch(this.API_CATEGORIES_URL, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}` 
+    },
+    body: JSON.stringify(category)
+  });
 
       if (!res.ok) {
         console.error("Error al actualizar:", res.status);
@@ -82,29 +47,8 @@ export class CategoriesService {
 
       const updatedCategory = await res.json() as Category;
       return updatedCategory;
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       return undefined;
     }
   }
-  async deleteCategory(id: string | number) {
-    if (!this.authService.token) return false;
-
-    try {
-      const res = await fetch(this.API_CATEGORIES_URL + "/" + id, {
-        method: "DELETE",
-        headers: {
-          'Authorization': "Bearer " + this.authService.token 
-        }
-      });
-
-      if (!res.ok) return false;
-
-      const numId = Number(id);
-      return true;
-    } catch (error) {
-      console.error(error);
-      return false;
-    }
-  }
-}
